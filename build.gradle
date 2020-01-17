@@ -19,6 +19,10 @@ repositories {
             url 'https://nexus.illyria.io/repository/maven-public/'
     }
     maven {
+        url 'https://ci.dustplanet.de/plugin/repository/everything/'
+    }
+
+    maven {
         url 'https://rayzr.dev/repo/'
     }
     maven {
@@ -51,6 +55,9 @@ dependencies {
     implementation 'net.prosavage:BasePlugin:1.5.1'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.4.0"
     compile 'me.rayzr522:jsonmessage:1.2.0'
+    compileOnly('de.dustplanet:SilkSpawners:6.0.0-SNAPSHOT') {
+        exclude group: '*', module: '*'
+    }
 }
 processResources {
     eachFile { details ->

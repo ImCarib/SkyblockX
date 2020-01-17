@@ -1,5 +1,7 @@
 package io.illyria.skyblockx.core
 
+import de.dustplanet.silkspawners.SilkSpawners
+import de.dustplanet.util.SilkUtil
 import io.illyria.skyblockx.Globals
 import io.illyria.skyblockx.event.IslandPostLevelCalcEvent
 import io.illyria.skyblockx.event.IslandPreLevelCalcEvent
@@ -112,6 +114,11 @@ data class Island(
                             val blockType = getChunkSnapshotBlockType(useNewGetBlockTypeSnapshotMethod, chunkSnapshot, x, y, z)!!
                             if (blockType == Material.AIR) continue
                             val xmat = XMaterial.matchXMaterial(blockType) ?: continue
+                            if (xmat == XMaterial.SPAWNER) {
+                                val silkspawners = Bukkit.getPluginManager().getPlugin("SilkSpawners") as SilkSpawners
+                                val silkUtil = SilkUtil(silkspawners)
+                                silkUtil.getCreatureName(silkUtil.getSpawnerEntityID(world.getBlockAt(x, y, z)))
+                            }
                             price += BlockValues.blockValues[xmat] ?: 0.0
                             mapAmt[xmat] = mapAmt.getOrDefault(xmat, 0) + 1
                         }
